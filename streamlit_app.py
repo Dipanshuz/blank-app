@@ -3,7 +3,9 @@ import pandas as pd
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
+import random
 from collections import Counter
+
 
 st.title("📱 WhatsApp Chat Visualizer")
 
