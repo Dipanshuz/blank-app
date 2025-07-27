@@ -58,6 +58,12 @@ def parse_and_preprocess(chat_text):
 
 if uploaded_file is not None:
 
+    chat_text = uploaded_file.getvalue().decode("utf-8")
+    df = parse_and_preprocess(chat_text)
+    st.success("Chat parsed successfully!")
+
+    st.header("📊 Chat Visualizations")
+
     # 5. Word Cloud (Simulated using Counter and matplotlib)
     st.subheader("5. Word Cloud")
 
@@ -91,12 +97,6 @@ if uploaded_file is not None:
 
     st.pyplot(fig)
     
-    chat_text = uploaded_file.getvalue().decode("utf-8")
-    df = parse_and_preprocess(chat_text)
-    st.success("Chat parsed successfully!")
-
-    st.header("📊 Chat Visualizations")
-
     # 1. Daily Messages
     st.subheader("1. Messages Per Day")
     daily_msgs = df.groupby('date').size()
