@@ -14,6 +14,13 @@ custom_stopwords = set([
     'hahaha', 'hahahaha', 'kya', 'the', 'are', 'you', 'me', 'image', 'u', 'na', 'toh'
 ])
 
+phrases_to_remove = [
+    "image omitted",
+    "voice call",
+    "video call"
+]
+
+
 # Merge built-in stopwords with custom ones
 all_stopwords = STOPWORDS.union(custom_stopwords)
 
@@ -116,7 +123,11 @@ if uploaded_file is not None:
             if not text.strip():
                 st.info(f"No valid messages from {sender}")
                 continue
-    
+
+            for phrase in phrases_to_remove:
+                text = text.replace(phrase, '')
+            
+        
             wordcloud = WordCloud(
                 width=800,
                 height=400,
