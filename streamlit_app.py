@@ -96,10 +96,13 @@ if uploaded_file is not None:
     st.dataframe(df.head(20))
 
 
+
 import matplotlib.pyplot as plt
 import seaborn as sns
 
 # Meassages per day
+
+df = parse_and_preprocess(chat_text)
 
 st.subheader("1. Daily Message Count")
 
