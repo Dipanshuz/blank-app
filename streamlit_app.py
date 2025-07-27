@@ -94,3 +94,22 @@ if uploaded_file is not None:
 
     st.subheader("Sample Data")
     st.dataframe(df.head(20))
+
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+
+# Meassages per day
+
+st.subheader("1. Daily Message Count")
+
+daily_msgs = df.groupby('date').size()
+
+fig, ax = plt.subplots()
+daily_msgs.plot(kind='line', ax=ax)
+ax.set_xlabel("Date")
+ax.set_ylabel("Messages")
+ax.set_title("Messages Per Day")
+st.pyplot(fig)
+
+st.line_chart(daily_msgs)
