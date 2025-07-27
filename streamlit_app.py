@@ -10,7 +10,7 @@ from collections import Counter
 #---------------------------------------------------------------------------------------------------
 
 custom_stopwords = set([
-    'ok', 'hmm', 'ha', 'haan', 'huh', 'oh', 'yeah', 'acha', 'hmmm', 'hahah', 'omitted', 
+    'ok', 'hmm', 'ha', 'haan', 'huh', 'oh', 'yeah', 'acha', 'hmmm', 'hahah', 'omitted','image omitted', 'voice', 'voice call', 'video call', 'video', 
     'hahaha', 'hahahaha', 'kya', 'the', 'are', 'you', 'me', 'image', 'u', 'na', 'toh'
 ])
 
