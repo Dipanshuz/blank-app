@@ -92,7 +92,7 @@ if uploaded_file is not None:
 
     for word, freq in most_common:
         x, y = random.uniform(0, 1), random.uniform(0, 1)
-        size = freq * 2  # Adjust multiplier as needed
+        size = min(freq * 2,30)  # Adjust multiplier as needed
         ax.text(x, y, word, fontsize=size, alpha=0.7,
                 ha='center', va='center', transform=ax.transAxes,
                 color=(random.random(), random.random(), random.random()))
