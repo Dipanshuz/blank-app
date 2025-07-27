@@ -97,6 +97,7 @@ if uploaded_file is not None:
         height=400,
         background_color='white',
         max_words=100,
+        stopwords=all_stopwords,
         contour_color='steelblue',
         colormap='viridis'
     ).generate(all_words)
