@@ -84,7 +84,7 @@ if uploaded_file is not None:
     words = [word for word in words if word not in stopwords and len(word) > 2 and not word.startswith("http")]
 
     word_freq = Counter(words)
-    most_common = word_freq.most_common(100)
+    most_common = word_freq.most_common(50)
 
     # Create a pseudo wordcloud using scatter plot
     fig, ax = plt.subplots(figsize=(10, 6))
@@ -92,7 +92,7 @@ if uploaded_file is not None:
 
     for word, freq in most_common:
         x, y = random.uniform(0, 1), random.uniform(0, 1)
-        size = freq * 4  # Adjust multiplier as needed
+        size = freq * 2  # Adjust multiplier as needed
         ax.text(x, y, word, fontsize=size, alpha=0.7,
                 ha='center', va='center', transform=ax.transAxes,
                 color=(random.random(), random.random(), random.random()))
