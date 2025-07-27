@@ -3,6 +3,7 @@ import pandas as pd
 import re
 import matplotlib.pyplot as plt
 import seaborn as sns
+from collections from Counter
 
 st.title("📱 WhatsApp Chat Visualizer")
 
@@ -56,6 +57,40 @@ def parse_and_preprocess(chat_text):
     return df
 
 if uploaded_file is not None:
+
+    # 5. Word Cloud (Simulated using Counter and matplotlib)
+    st.subheader("5. Word Cloud")
+
+    # Combine all messages
+    all_words = ' '.join(df['message'].dropna().astype(str)).lower()
+
+    # Remove common stopwords (you can expand this list)
+    stopwords = set([
+        "the", "to", "and", "i", "you", "a", "of", "is", "in", "it", "for", "on", "that",
+        "this", "was", "with", "are", "but", "be", "have", "not", "at", "my", "me", "we",
+        "so", "do", "just", "your", "if", "they", "what", "can", "all", "no"
+    ])
+
+    # Tokenize and filter words
+    words = [word.strip(".,!?()[]\"'") for word in all_words.split()]
+    words = [word for word in words if word not in stopwords and len(word) > 2 and not word.startswith("http")]
+
+    word_freq = Counter(words)
+    most_common = word_freq.most_common(100)
+
+    # Create a pseudo wordcloud using scatter plot
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.axis("off")
+
+    for word, freq in most_common:
+        x, y = random.uniform(0, 1), random.uniform(0, 1)
+        size = freq * 4  # Adjust multiplier as needed
+        ax.text(x, y, word, fontsize=size, alpha=0.7,
+                ha='center', va='center', transform=ax.transAxes,
+                color=(random.random(), random.random(), random.random()))
+
+    st.pyplot(fig)
+    
     chat_text = uploaded_file.getvalue().decode("utf-8")
     df = parse_and_preprocess(chat_text)
     st.success("Chat parsed successfully!")
