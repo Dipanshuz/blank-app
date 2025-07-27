@@ -183,5 +183,48 @@ if uploaded_file is not None:
     ax.set_title("Messages by Hour and Sender")
     st.pyplot(fig)
 
-
-
+    # ... previous visualizations ...
+    
+    # ---- WORD FREQUENCY ANALYSIS ---- #
+    st.header("7. Word Frequency Analysis")
+    
+    from collections import Counter
+    import string
+    
+    # Combine all messages into one string
+    text = ' '.join(df['message'].dropna().astype(str)).lower()
+    
+    # List of multi-word phrases to remove
+    phrases_to_remove = ["image omitted", "video call", "voice call"]
+    for phrase in phrases_to_remove:
+        text = text.replace(phrase, '')
+    
+    # Remove punctuation
+    text = text.translate(str.maketrans('', '', string.punctuation))
+    
+    # Tokenize
+    words = text.split()
+    
+    # Define stopwords
+    custom_stopwords = set([
+        'ok', 'hmm', 'ha', 'haan', 'huh', 'oh', 'yeah', 'acha', 'hmmm', 'hahah',
+        'hahaha', 'hahahaha', 'kya', 'the', 'are', 'you', 'me', 'i', 'u', 'na', 'toh'
+    ])
+    from wordcloud import STOPWORDS
+    all_stopwords = STOPWORDS.union(custom_stopwords)
+    
+    # Filter stopwords
+    filtered_words = [word for word in words if word not in all_stopwords and word.strip() != '']
+    
+    # Count
+    word_freq = Counter(filtered_words)
+    
+    # Convert to DataFrame
+    import pandas as pd
+    freq_df = pd.DataFrame(word_freq.items(), columns=['Word', 'Frequency']).sort_values(by='Frequency', ascending=False)
+    
+    # Display
+    st.dataframe(freq_df.reset_index(drop=True))
+    
+    
+    
